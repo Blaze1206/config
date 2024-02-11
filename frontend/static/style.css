@@ -1,0 +1,15 @@
+body{
+    background-color: green;
+}
+
+#goods_list{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#goods_list tr td{ 
+   border: 1px solid black;
+   
+}
+
+
