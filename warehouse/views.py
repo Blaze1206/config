@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .serializers import GoodSerializer,OrderSerializer
 from .models import Good,Order
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate, logout
 
 # Create your views here.
 
@@ -131,3 +134,35 @@ def order_view(request,pk):
         return Response({'message':f'Order ID {pk} is not exsist!'})
     serialized=OrderSerializer(order,many=False)
     return render(request,'order.html',{'order':serialized.data})
+
+def main(request):
+    return render(request, 'index.html')
+
+@login_required(login_url='../login/')
+def warehouse_admin(request):
+    return render(request,'warehouse_admin.html')
+
+@login_required(login_url='../login/')
+def warehouse_orders(request):
+    return render(request, 'warehouse_orders.html')
+
+def login_page(request):
+    if request.method == 'POST': 
+        form = AuthenticationForm(data = request.POST)
+
+        if form.is_valid():
+            uname = form.cleaned_data.get('username')
+            pword = form.cleaned_data.get('password')
+            user = authenticate(request, username=uname, password=pword)
+            if user is not None:
+                login(request, user)
+                return redirect('../w_admin')
+        return render(request, 'login.html')
+    
+    else: 
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form':form})
+
+def logout_page(request):
+    logout(request)
+    return redirect('index')
