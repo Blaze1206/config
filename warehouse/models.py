@@ -22,6 +22,7 @@ class Good(models.Model):
     price_out = models.IntegerField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES,default=6)
     discount = models.IntegerField(default=0)
+    photo = models.ImageField(upload_to="goods",blank=True)
    
     def __str__(self):
         return self.name

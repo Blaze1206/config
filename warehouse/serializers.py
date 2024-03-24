@@ -8,7 +8,7 @@ class GoodSerializer(ModelSerializer):
 
     class Meta:
         model = Good
-        fields = ['id','is_visible','item_code','name','amount','price_in','price_out','category']
+        fields = ['id','is_visible','item_code','name','amount','price_in','price_out','category','discount','photo']
 
 
 class OrderSerializer(ModelSerializer):
