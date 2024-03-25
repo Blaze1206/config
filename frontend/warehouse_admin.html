@@ -11,6 +11,9 @@
         <input type="text" id="name">
         <button onclick="">Keress</button>
 
+        <input type="checkbox" id="available">
+        Nem elérhető
+
         <a href="{% url 'w_orders' %}"> Rendelések</a>
 
         <a href="{% url 'logout' %}">
@@ -31,7 +34,7 @@
         </tr>
     </table>
 
-
+    <div id="pages"></div>
 
     
     <script src="../static/script_admin.js"></script>
