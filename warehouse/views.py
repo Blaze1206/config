@@ -89,6 +89,8 @@ def orderHandler(request):
         price = request.data['price']
         
         item_id=Good.objects.get(id=item)
+        item_id.amount-=int(amount)
+        item_id.save()
 
         order = Order(is_visible=is_visible,item=item_id,name=name,address=address,e_mail=e_mail,phone=phone,amount=amount,price=price)
         order.save()
