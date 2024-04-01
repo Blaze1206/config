@@ -375,3 +375,27 @@ document.getElementById('done').addEventListener("change",function(){
     });
     }
 })
+
+function search(){
+  let searchItem = document.getElementById('search').value.toLowerCase();
+  var elements = document.querySelectorAll('[class^="page"]');
+  var load = false;
+  elements.forEach(element => {
+      console.log(load)
+      let text = element.innerText.toLowerCase();
+      if (searchItem=="" && load==false) {
+          load=true
+          document.getElementById('orders_list').innerHTML="<tr><td>Rendelés szám</td><td>Termék</td><td>Mennyiség</td><td>Név</td><td>Cím</td><td>Dátum</td><td>Ár</td></tr>"  
+          loadOrders();
+          
+      }
+      if (text.includes(searchItem) && searchItem!="") {
+          element.style.display ='table-row'
+          document.getElementById('pages').innerHTML="";
+      }
+      else{
+          element.style.display ='none'
+      }
+  });
+  
+}

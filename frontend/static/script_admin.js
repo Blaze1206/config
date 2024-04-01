@@ -38,17 +38,23 @@ fetch('/api/good/')
         }
         count++;
     });
-    let pages = document.getElementById('pages')
-    for (let i = 0; i < page; i++) {
+    setPage(page)
+    showhPage(1)
+    });
+}
+
+function setPage(page){
+    document.getElementById('pages').innerHTML="";
+        let pages = document.getElementById('pages')
+        for (let i = 0; i < page; i++) {
         let button = document.createElement('button')
         button.innerText=i+1;
         button.addEventListener("click", function(){showhPage(i+1)})
         pages.appendChild(button)
         
     }
-    showhPage(1)
-    });
 }
+
 
 function showhPage(pageNumber){
     let pages = document.querySelectorAll('[class^="page"]');
@@ -102,15 +108,7 @@ document.getElementById('available').addEventListener("change",function(){
         }
         count++;  
     });
-        document.getElementById('pages').innerHTML="";
-        let pages = document.getElementById('pages')
-        for (let i = 0; i < page; i++) {
-        let button = document.createElement('button')
-        button.innerText=i+1;
-        button.addEventListener("click", function(){showhPage(i+1)})
-        pages.appendChild(button)
-
-        }
+        setPage(page)
         showhPage(1)    
     });
     }
@@ -152,19 +150,35 @@ document.getElementById('available').addEventListener("change",function(){
         }
         count++;    
     });
-        document.getElementById('pages').innerHTML="";
-        let pages = document.getElementById('pages')
-        for (let i = 0; i < page; i++) {
-        let button = document.createElement('button')
-        button.innerText=i+1;
-        button.addEventListener("click", function(){showhPage(i+1)})
-        pages.appendChild(button)
-
-    }
+        setPage(page)
         showhPage(1)    
     });
     }
 })
+
+function search(){
+    let searchItem = document.getElementById('search').value.toLowerCase();
+    var elements = document.querySelectorAll('[class^="page"]');
+    var load = false;
+    elements.forEach(element => {
+        console.log(load)
+        let text = element.innerText.toLowerCase();
+        if (searchItem=="" && load==false) {
+            load=true
+            document.getElementById('goods_list').innerHTML="<tr><td>Termék kód</td><td>Név</td><td>Mennyiség</td><td>Beszerzési ár</td><td>Eladási ár</td></tr>";  
+            loadGoods();
+            
+        }
+        if (text.includes(searchItem) && searchItem!="") {
+            element.style.display ='table-row'
+            document.getElementById('pages').innerHTML="";
+        }
+        else{
+            element.style.display ='none'
+        }
+    });
+    
+}
 
 
 
