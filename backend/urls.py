@@ -21,15 +21,17 @@ from warehouse import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/good/',views.goodHandler),
+    path('api/good/',views.goodHandler, name="good"),
     path('api/good/<int:pk>',views.specificGoodHandler),
     path('',views.main, name='index'),
     path('w_admin/',views.warehouse_admin, name='w_admin'),
     path('w_orders/',views.warehouse_orders, name='w_orders'),
     path('item/<int:pk>',views.item_view),
-    path('api/orders/',views.orderHandler),
+    path('api/orders/',views.orderHandler,name="order"),
     path('api/orders/<int:pk>',views.specificOrderHandler),
     path('order/<int:pk>',views.order_view),
     path('login/', views.login_page),
     path('logout/', views.logout_page, name="logout"),
+    path('add_order/',views.add_order, name="add_order"),
+    path('add_good/',views.add_good, name="add_good")
 ]

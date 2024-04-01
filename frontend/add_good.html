@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Termék hozzáadása</h1>
+
+    <form action="{%url 'good' %}" method="post">
+        {% csrf_token %}
+        <label for="item_code">Termék kód:</label>
+        <input type="text" name="item_code">
+        <label for="is_visible">Elérhető:</label>
+        <select name="is_visible">
+            <option value="True">true</option>
+            <option value="False">false</option>
+        </select>
+        <label for="name">Név:</label>
+        <input type="text" name="name">
+        <label for="amount">Mennyiség</label>
+        <input type="number" name="amount">
+        <label for="price_in">Beszerzési ár:</label>
+        <input type="number" name="price_in">
+        <label for="price_out">Eladási ár:</label>
+        <input type="number" name="price_out">
+        <button type="submit">Mentés</button>
+</body>
+</html>

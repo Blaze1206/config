@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <H1>Rendelés hozzáadása</H1>
+
+    <form action="{%url 'order' %}" method="post">
+        {% csrf_token %}
+        <label for="item">Termék:</label>
+        <select name="item" id="">
+            {% for good in goods%}
+            <option value="{{good.id}}">{{good.name}}</option>
+            {%endfor%}
+        </select>
+        <select name="is_visible">
+            <option value="True">true</option>
+            <option value="False">false</option>
+        </select>
+        <label for="name">Név:</label>
+        <input type="text" name="name">
+        <label for="address">Cím:</label>
+        <input type="text" name="address">
+        <label for="e_mail">E-mail:</label>
+        <input type="email" name="e_mail">
+        <label for="phone">Telefonszám:</label>
+        <input type="tel" name="phone">
+        <label for="amount">Mennyiség:</label>
+        <input type="number" name="amount">
+        <label for="price">Ár</label>
+        <input type="number" name="price">
+        <button type="submit">Mentés</button>
+    </form>
+
+</body>
+</html>

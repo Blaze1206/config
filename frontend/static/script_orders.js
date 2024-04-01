@@ -381,7 +381,6 @@ function search(){
   var elements = document.querySelectorAll('[class^="page"]');
   var load = false;
   elements.forEach(element => {
-      console.log(load)
       let text = element.innerText.toLowerCase();
       if (searchItem=="" && load==false) {
           load=true

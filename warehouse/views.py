@@ -10,6 +10,7 @@ from django.contrib.auth import login, authenticate, logout
 
 # Create your views here.
 
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def goodHandler(request):
     if request.method == 'GET':
@@ -27,7 +28,7 @@ def goodHandler(request):
         good = Good(is_visible=is_visible,item_code=item_code,name=name,amount=amount,price_in=price_in,price_out=price_out)
         good.save()
         serialized=GoodSerializer(good, many=False)
-        return Response(serialized.data)
+        return render(request,'item.html',{'item': serialized.data})
     
 
 @csrf_exempt
@@ -92,7 +93,8 @@ def orderHandler(request):
         order = Order(is_visible=is_visible,item=item_id,name=name,address=address,e_mail=e_mail,phone=phone,amount=amount,price=price)
         order.save()
         serialized=OrderSerializer(order, many=False)
-        return Response(serialized.data)
+        return render(request,'order.html',{'order':serialized.data})
+
     
 @csrf_exempt
 @api_view(['PUT','DELETE'])
@@ -166,3 +168,10 @@ def login_page(request):
 def logout_page(request):
     logout(request)
     return redirect('index')
+
+def add_order(request):
+    goods = Good.objects.all()
+    return render(request, 'add_order.html',{'goods':goods})
+
+def add_good(request):
+    return render(request,'add_good.html')
