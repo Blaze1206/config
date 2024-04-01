@@ -7,14 +7,42 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <a href="{% url 'w_admin' %}"> Termékek</a>
+    <div id="orders_head">
+        <input type="text" id="name">
+        <button onclick="">Keress</button>
+
+        <input type="checkbox" id="deleted">
+        Törölt
+
+        <input type="checkbox" id="done">
+        Kész
+
+        <a href="{% url 'w_admin' %}"> Termékek</a>
 
         <a href="{% url 'logout' %}">
             Kijelentkezés
         </a>
-    itt ugyan olyan formában mint a warehouse_admin.html-en kellene majd megjelennie a rendeléseknek. Itt is ha egy rendelésre kattintunk akkor hozza fel egy másik oldalon hogy lehessen szerkeszteni
+        
+        
+    </div>
 
-    <script src="../static/script.js"></script>
+        <table id="orders_list">
+            <tr>
+                <td>Rendelés szám</td>
+                <td>Termék</td>
+                <td>Mennyiség</td>
+                <td>Név</td>
+                <td>Cím</td>
+                <td>Dátum</td>
+                <td>Ár</td>
+            </tr>
+        </table>
+
+        <div id="pages"></div>
+
+    <script src="../static/script_orders.js"></script>
+    <script>loadOrders();</script>
+
     
 </body>
 </html>

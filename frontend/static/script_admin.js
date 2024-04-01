@@ -2,7 +2,7 @@
 
 
 
-function loadGoods(goods_list){
+function loadGoods(){
 let count = 1;
 let page = 1;
 let itemsPerPage=21;

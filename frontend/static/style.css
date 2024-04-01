@@ -12,4 +12,11 @@ body{
    
 }
 
+#orders_list{
+    border-collapse: collapse;
+    width: 100%;
+}
 
+#orders_list tr td{
+    border: 1px solid black;
+}

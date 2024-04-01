@@ -29,6 +29,7 @@ class Good(models.Model):
     
 class Order(models.Model):
     is_visible = models.BooleanField(default=True)
+    is_done = models.BooleanField(default=False, blank = True)
     item = models.ForeignKey(Good,on_delete=models.PROTECT, related_name="ordered_item")
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
