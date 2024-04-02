@@ -29,7 +29,9 @@ fetch('/api/good/')
         price_in.innerText = good.price_in
         let price_out = document.createElement('td')
         price_out.innerText = good.price_out
-        tr.append(item_code,name,amount,price_in,price_out)
+        let discount = document.createElement('td')
+        discount.innerText = good.discount
+        tr.append(item_code,name,amount,price_in,price_out,discount)
         list.appendChild(tr)
         }
         if(count%itemsPerPage===0){
@@ -78,7 +80,7 @@ document.getElementById('available').addEventListener("change",function(){
         .then(res => res.json())
         .then(data => {
             console.log(data)
-        document.getElementById('goods_list').innerHTML="<tr><td>Termék kód</td><td>Név</td><td>Mennyiség</td><td>Beszerzési ár</td><td>Eladási ár</td></tr>";
+        document.getElementById('goods_list').innerHTML="<tr><td>Termék kód</td><td>Név</td><td>Mennyiség</td><td>Beszerzési ár</td><td>Eladási ár</td><td>Akció</td></tr>";
         data.forEach(good => {
         TODO:"rövidebbre csinálni,oldalanként x elem töltsön be"
         if (good.is_visible==false) {
@@ -99,7 +101,9 @@ document.getElementById('available').addEventListener("change",function(){
         price_in.innerText = good.price_in
         let price_out = document.createElement('td')
         price_out.innerText = good.price_out
-        tr.append(item_code,name,amount,price_in,price_out)
+        let discount = document.createElement('td')
+        discount.innerText = good.discount
+        tr.append(item_code,name,amount,price_in,price_out,discount)
         list.appendChild(tr)  
         }
         if(good.is_visible==false && count%itemsPerPage===0){
@@ -120,7 +124,7 @@ document.getElementById('available').addEventListener("change",function(){
         .then(res => res.json())
         .then(data => {
             console.log(data)
-        document.getElementById('goods_list').innerHTML="<tr><td>Termék kód</td><td>Név</td><td>Mennyiség</td><td>Beszerzési ár</td><td>Eladási ár</td></tr>";
+        document.getElementById('goods_list').innerHTML="<tr><td>Termék kód</td><td>Név</td><td>Mennyiség</td><td>Beszerzési ár</td><td>Eladási ár</td><td>Akció</td></tr>";
         data.forEach(good => {
         TODO:"rövidebbre csinálni,oldalanként x elem töltsön be"
         if (good.is_visible==true) {
@@ -141,7 +145,9 @@ document.getElementById('available').addEventListener("change",function(){
         price_in.innerText = good.price_in
         let price_out = document.createElement('td')
         price_out.innerText = good.price_out
-        tr.append(item_code,name,amount,price_in,price_out)
+        let discount = document.createElement('td')
+        discount.innerText = good.discount
+        tr.append(item_code,name,amount,price_in,price_out,discount)
         list.appendChild(tr)  
         }
         if(count%itemsPerPage===0){
@@ -164,7 +170,7 @@ function search(){
         let text = element.innerText.toLowerCase();
         if (searchItem=="" && load==false) {
             load=true
-            document.getElementById('goods_list').innerHTML="<tr><td>Termék kód</td><td>Név</td><td>Mennyiség</td><td>Beszerzési ár</td><td>Eladási ár</td></tr>";  
+            document.getElementById('goods_list').innerHTML="<tr><td>Termék kód</td><td>Név</td><td>Mennyiség</td><td>Beszerzési ár</td><td>Eladási ár</td><td>Akció</td></tr>";  
             loadGoods();
             
         }

@@ -5,7 +5,6 @@ function loadOrders(){
     fetch('/api/orders/')
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
         data.forEach(order => {
           if (order.is_visible==true && order.is_done==false){
             let list = document.getElementById('orders_list')
@@ -68,7 +67,6 @@ document.getElementById('deleted').addEventListener("change",function(){
         fetch('/api/orders/')
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
         document.getElementById('orders_list').innerHTML="<tr><td>Rendelés szám</td><td>Termék</td><td>Mennyiség</td><td>Név</td><td>Cím</td><td>Dátum</td><td>Ár</td></tr>"
         data.forEach(order => {
           if (order.is_visible==false){
@@ -119,7 +117,6 @@ document.getElementById('deleted').addEventListener("change",function(){
         fetch('/api/orders/')
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
         document.getElementById('orders_list').innerHTML="<tr><td>Rendelés szám</td><td>Termék</td><td>Mennyiség</td><td>Név</td><td>Cím</td><td>Dátum</td><td>Ár</td></tr>"
         data.forEach(order => {
           if (order.is_visible==true){
@@ -174,7 +171,6 @@ document.getElementById('deleted').addEventListener("change",function(){
         fetch('/api/orders/')
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
         document.getElementById('orders_list').innerHTML="<tr><td>Rendelés szám</td><td>Termék</td><td>Mennyiség</td><td>Név</td><td>Cím</td><td>Dátum</td><td>Ár</td></tr>"
         data.forEach(order => {
           if (order.is_visible==false){
@@ -225,7 +221,6 @@ document.getElementById('deleted').addEventListener("change",function(){
         fetch('/api/orders/')
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
         document.getElementById('orders_list').innerHTML="<tr><td>Rendelés szám</td><td>Termék</td><td>Mennyiség</td><td>Név</td><td>Cím</td><td>Dátum</td><td>Ár</td></tr>"
         data.forEach(order => {
           if (order.is_visible==true){
@@ -279,7 +274,6 @@ document.getElementById('done').addEventListener("change",function(){
         fetch('/api/orders/')
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
         document.getElementById('orders_list').innerHTML="<tr><td>Rendelés szám</td><td>Termék</td><td>Mennyiség</td><td>Név</td><td>Cím</td><td>Dátum</td><td>Ár</td></tr>"
         data.forEach(order => {
           if (order.is_done==true){
@@ -330,7 +324,6 @@ document.getElementById('done').addEventListener("change",function(){
         fetch('/api/orders/')
     .then(res=>res.json())
     .then(data=>{
-        console.log(data)
         document.getElementById('orders_list').innerHTML="<tr><td>Rendelés szám</td><td>Termék</td><td>Mennyiség</td><td>Név</td><td>Cím</td><td>Dátum</td><td>Ár</td></tr>"
         data.forEach(order => {
           if (order.is_done==false){

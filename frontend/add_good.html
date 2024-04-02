@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <title>Document</title>
+    <title>Termék hozzáadása</title>
 </head>
 <body>
     <h1>Termék hozzáadása</h1>
+    <a href="{% url 'w_admin' %}">Vissza</a>
 
     <form action="{%url 'good' %}" method="post">
         {% csrf_token %}
@@ -15,8 +16,13 @@
         <input type="text" name="item_code">
         <label for="is_visible">Elérhető:</label>
         <select name="is_visible">
-            <option value="True">true</option>
-            <option value="False">false</option>
+            <option value="True">Igen</option>
+            <option value="False">Nem</option>
+        </select>
+        <select name="category">
+            {% for choice in choices %}
+                <option value="{{choice.0}}">{{choice.1}}</option>
+            {% endfor %}
         </select>
         <label for="name">Név:</label>
         <input type="text" name="name">
@@ -26,6 +32,10 @@
         <input type="number" name="price_in">
         <label for="price_out">Eladási ár:</label>
         <input type="number" name="price_out">
+        <label for="discount">Kedvezmény:</label>
+        <input type="number" name="discount">
+        <label for="photo">Kép hozzáadása:</label>
+        <input type="file" name="photo"> 
         <button type="submit">Mentés</button>
 </body>
 </html>

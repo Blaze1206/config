@@ -4,22 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <title>Document</title>
+    <title>Rendelés hozzáadása</title>
 </head>
 <body>
     <H1>Rendelés hozzáadása</H1>
+    <a href="{% url 'w_orders' %}">Vissza</a>
 
     <form action="{%url 'order' %}" method="post">
         {% csrf_token %}
         <label for="item">Termék:</label>
-        <select name="item" id="">
+        <select name="item" id="item">
+            <option value="">Válaszd ki a terméket</option>
             {% for good in goods%}
             <option value="{{good.id}}">{{good.name}}</option>
             {%endfor%}
         </select>
+        <label for="is_visible">Állapot:</label>
         <select name="is_visible">
-            <option value="True">true</option>
-            <option value="False">false</option>
+            <option value="True">Élő</option>
+            <option value="False">Törölt</option>
+        </select>
+        <label for="is_done">Szállítva:</label>
+        <select name="is_done">
+            <option value="True">Igen</option>
+            <option value="False">Nem</option>
         </select>
         <label for="name">Név:</label>
         <input type="text" name="name">
@@ -30,11 +38,11 @@
         <label for="phone">Telefonszám:</label>
         <input type="tel" name="phone">
         <label for="amount">Mennyiség:</label>
-        <input type="number" name="amount">
+        <input type="number" name="amount" id="amount" min="1" >
         <label for="price">Ár</label>
-        <input type="number" name="price">
+        <input type="number" name="price" id="price">
         <button type="submit">Mentés</button>
     </form>
-
+    <script src="../static/script_add_order.js"></script>
 </body>
 </html>

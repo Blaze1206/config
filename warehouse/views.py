@@ -25,7 +25,10 @@ def goodHandler(request):
         amount = request.data['amount']
         price_in = request.data['price_in']
         price_out = request.data['price_out']
-        good = Good(is_visible=is_visible,item_code=item_code,name=name,amount=amount,price_in=price_in,price_out=price_out)
+        discount = request.data['discount']
+        category = request.data['category']
+        photo = request.data['photo']
+        good = Good(is_visible=is_visible,item_code=item_code,name=name,amount=amount,price_in=price_in,price_out=price_out,discount=discount,category=category,photo=photo)
         good.save()
         serialized=GoodSerializer(good, many=False)
         return render(request,'item.html',{'item': serialized.data})
@@ -67,9 +70,8 @@ def item_view(request,pk):
     
     serialized = GoodSerializer(good, many=False)
 
-   
-    
     return render(request,'item.html',{'item': serialized.data})
+
 @csrf_exempt
 @api_view(['GET','POST'])
 def orderHandler(request):
@@ -107,6 +109,11 @@ def specificOrderHandler(request,pk):
         return Response({'message':'Order not found!'})
     if request.method == 'DELETE':
         order.is_visible=False
+        amount = order.amount
+        order.amount=0
+        item_id=Good.objects.get(id=order.item.pk)
+        item_id.amount+=amount
+        item_id.save()
         order.save()
         return Response({'message':f'Order ID {pk} is removed successfully!'})
 
@@ -115,8 +122,10 @@ def specificOrderHandler(request,pk):
 
             item=request.data['item']
             item_id=Good.objects.get(id=item)
+            order_original_amount=order.amount
 
             order.is_visible = request.data['is_visible']
+            order.is_done = request.data['is_done']
             order.item = item_id
             order.name = request.data['name']
             order.address = request.data['address']
@@ -124,6 +133,15 @@ def specificOrderHandler(request,pk):
             order.phone = request.data['phone']
             order.amount = request.data['amount']
             order.price = request.data['price']
+            amount=0
+            if order_original_amount>order.amount:
+                 amount=order_original_amount-order.amount
+                 item_id.amount+=amount
+            if order_original_amount<order.amount:
+                 amount=order.amount-order_original_amount
+                 item_id.amount-=amount
+            
+            item_id.save()
             order.save()
             serialized=OrderSerializer(order,many=False)
             return Response(serialized.data)
@@ -171,9 +189,12 @@ def logout_page(request):
     logout(request)
     return redirect('index')
 
+@login_required(login_url='../login/')
 def add_order(request):
     goods = Good.objects.all()
     return render(request, 'add_order.html',{'goods':goods})
 
+@login_required(login_url='../login/')
 def add_good(request):
-    return render(request,'add_good.html')
+    choices = Good.CATEGORY_CHOICES
+    return render(request,'add_good.html',{'choices':choices})
