@@ -1,10 +1,24 @@
 body{
-    background-color: green;
+    background-color:rgb(218, 218, 218) ;
+    margin-top: 35px;
+    margin-left: 90px;
+    margin-right: 90px;
+    font-size: 120%;
+    border-radius: 6px;
+}
+
+#admin_head {
+    text-align: center;
+}    
+
+#pages {
+    text-align: center;
 }
 
 #goods_list{
     border-collapse: collapse;
     width: 100%;
+    color: rgb(19, 19, 40);
 }
 
 #goods_list tr td{ 
@@ -18,5 +32,6 @@ body{
 }
 
 #orders_list tr td{
-    border: 1px solid black;
+    border: 2px solid rgb(7, 16, 74);
+    font-size: 120%;
 }
