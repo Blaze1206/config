@@ -1,0 +1,20 @@
+body {
+    background-image: linear-gradient(180deg, rgb(255, 226, 189), rgb(72, 50, 22) );
+    margin-left: 50px;
+    margin-top: 50px;
+    color: rgb(54, 29, 8);
+}
+
+#a1 {
+    color: black;
+}
+
+#a2 {
+    color: rgb(218, 27, 27);
+}
+
+hr {
+    background-color: rgb(72, 50, 22);
+    height: 1px;
+    
+}
