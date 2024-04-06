@@ -1,15 +1,31 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/termek.css">
     <title>Termék</title>
 </head>
 <body>
-    <div><h1>{{item.name}}</h1><h2>Cikkszám: {{item.item_code}}</h2></div>
-    <div></div>
-    itt az warehouse_admin.html-en megjelenített adatok alapján kellene feltölteni a példa alapján az oldalt. A mennyiség, beszerzési ár, eladási ár meg pluszban a kategória legyen benne. Mennyiség, árak meg a kategórai meg állítható kell h legyen és akkor az lesz majd vissza adva az adatbázisnak utána. 
-    
+    <div id = "termek1">
+        <h1 id="a1">Termékleírás</h1>
+        <hr>
+        <h1 id="a2">{{item.name}}</h1>
+        <h2>Cikkszám: p{{item.item_code}}</h2>
+        <h2>Mennyiség: {{item.amount}} db</h2>
+        <h2>Beszerzési ár: {{item.price_in}} Ft</h2>
+        <h2>Eladási ár: {{item.price_out}} Ft</h2>
+        <h2>Kategória: {{item.category}}</h2>
+    </div>
+
+
+
+    <!-- 
+    itt az warehouse_admin.html-en megjelenített adatok alapján kellene feltölteni a
+     példa alapján az oldalt. A mennyiség, beszerzési ár, eladási ár meg pluszban a 
+     kategória legyen benne. Mennyiség, árak meg a kategórai 
+     meg állítható kell h legyen és akkor az lesz majd vissza adva az adatbázisnak utána. 
+    -->
     
 
     <script src="../static/item.js"></script>
