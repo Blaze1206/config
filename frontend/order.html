@@ -1,14 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rendelés</title>
-</head>
-<body> 
-    
-    {{order.item.item_code}}
+<!--{{order.item.item_code}}
     Ide vezet amikor az warehouse_orders.html-en rákattintunk egy rendelésre.
-    Lehessen szerkeszteni szintén az elemeket és azokat beküldve lesznek majd mentve.
-</body>
-</html>
+    Lehessen szerkeszteni szintén az elemeket és azokat beküldve lesznek majd mentve.-->
+
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Rendelés részletei</title>
+        <!--<link rel="stylesheet" href="../static/style.css">-->
+    </head>
+    <body>
+        
+        <form action="{% url 'OrderHandler' pk=order.id %}" method="POST">
+            {% csrf_token %}
+            <label for="item">Termék:</label>
+            <input type="text" name="item" value="{{ order.item.id }}">
+            <label for="is_visible">Állapot:</label>
+            <select name="is_visible">
+                <option value="True">Élő</option>
+                <option value="False">Törölt</option>
+            </select>
+            <label for="is_done">Szállítva:</label>
+            <select name="is_done">
+                <option value="True">Igen</option>
+                <option value="False">Nem</option>
+            </select>
+            <label for="name">Név:</label>
+            <input type="text" name="name" value="{{ order.name }}">
+            <label for="address">Cím:</label>
+            <input type="text" name="address" value="{{ order.address }}">
+            <label for="e_mail">E-mail:</label>
+            <input type="email" name="e_mail" value="{{ order.e_mail }}">
+            <label for="phone">Telefonszám:</label>
+            <input type="tel" name="phone" value="{{ order.phone }}">
+            <label for="amount">Mennyiség:</label>
+            <input type="number" name="amount" id="amount" value="{{ order.amount }}">
+            <label for="price">Ár</label>
+            <input type="number" name="price" id="price" value="{{ order.price }}">
+            <button type="submit">Mentés</button>
+        </form>
+    </body>
+    </html>

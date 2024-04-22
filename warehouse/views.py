@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
-
+from django.views.decorators.http import require_http_methods
 # Create your views here.
 
 @csrf_exempt
@@ -35,7 +35,8 @@ def goodHandler(request):
     
 
 @csrf_exempt
-@api_view(['PUT','DELETE'])
+
+@api_view(['DELETE','GET','POST'])
 def specificGoodHandler(request,pk):
     try:
         good = Good.objects.get(id=pk)
@@ -47,7 +48,7 @@ def specificGoodHandler(request,pk):
         good.save()
         return Response({'message':f'Good ID {pk} is removed successfully!'})
     
-    if request.method=='PUT':
+    if request.method=='POST':
         try:
             good.is_visible = request.data['is_visible']
             good.item_code=request.data['item_code']
@@ -55,9 +56,11 @@ def specificGoodHandler(request,pk):
             good.amount=request.data['amount']
             good.price_in=request.data['price_in']
             good.price_out=request.data['price_out']
+            good.discount=request.data['discount']
+            good.photo=request.data['photo']
+            good.category=request.data['category']
             good.save()
-            serialized = GoodSerializer(good,many=False)
-            return Response(serialized.data)
+            return redirect('/w_admin/')
         except Exception as e:
             return Response({'error':repr(e)})
 
@@ -69,8 +72,8 @@ def item_view(request,pk):
         return Response({'message':f'Good ID {pk} is not exsist!'})
     
     serialized = GoodSerializer(good, many=False)
-
-    return render(request,'item.html',{'item': serialized.data})
+    choices = Good.CATEGORY_CHOICES
+    return render(request,'item.html',{'item': serialized.data,'choices':choices})
 
 @csrf_exempt
 @api_view(['GET','POST'])
@@ -101,7 +104,7 @@ def orderHandler(request):
 
     
 @csrf_exempt
-@api_view(['PUT','DELETE'])
+@api_view(['DELETE','POST','GET'])
 def specificOrderHandler(request,pk):
     try:
         order=Order.objects.get(id=pk)
@@ -117,36 +120,39 @@ def specificOrderHandler(request,pk):
         order.save()
         return Response({'message':f'Order ID {pk} is removed successfully!'})
 
-    if request.method == 'PUT':
+    if request.method == 'POST':
         try:
+            item_id = Good.objects.get(id=request.data['item'])
+            order_original_amount = order.amount
 
-            item=request.data['item']
-            item_id=Good.objects.get(id=item)
-            order_original_amount=order.amount
-
-            order.is_visible = request.data['is_visible']
-            order.is_done = request.data['is_done']
+            order.is_visible = request.data.get('is_visible', False)
+            order.is_done = request.data.get('is_done', False)
             order.item = item_id
             order.name = request.data['name']
             order.address = request.data['address']
             order.e_mail = request.data['e_mail']
             order.phone = request.data['phone']
-            order.amount = request.data['amount']
-            order.price = request.data['price']
-            amount=0
-            if order_original_amount>order.amount:
-                 amount=order_original_amount-order.amount
-                 item_id.amount+=amount
-            if order_original_amount<order.amount:
-                 amount=order.amount-order_original_amount
-                 item_id.amount-=amount
-            
+            order.amount = int(request.data['amount'])
+            order.price = int(request.data['price'])
+
+            amount = abs(order_original_amount - order.amount)
+            if order_original_amount > order.amount:
+                item_id.amount += amount
+            elif order_original_amount < order.amount:
+                item_id.amount -= amount
+
             item_id.save()
             order.save()
-            serialized=OrderSerializer(order,many=False)
-            return Response(serialized.data)
-        except Exception as e:
-            return Response({'error':repr(e)})
+            serialized = OrderSerializer(order, many=False)
+            return redirect('/w_orders/')
+        except Good.DoesNotExist:
+            return Response({'error': 'Good not found!'}, status=404)
+        except KeyError as e:
+            return Response({'error': f'Missing key in request data: {e}'}, status=400)
+        except ValueError as e:
+            return Response({'error': f'Invalid value: {e}'}, status=400)
+
+    return Response({'error': 'Invalid request method!'}, status=405)
         
 @api_view(['GET'])
 def order_view(request,pk):

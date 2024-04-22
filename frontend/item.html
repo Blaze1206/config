@@ -7,17 +7,37 @@
     <title>Termék</title>
 </head>
 <body>
-    <div id = "termek1">
-        <h1 id="a1">Termékleírás</h1>
-        <hr>
-        <h1 id="a2">{{item.name}}</h1>
-        <h2>Cikkszám: p{{item.item_code}}</h2>
-        <h2>Mennyiség: {{item.amount}} db</h2>
-        <h2>Beszerzési ár: {{item.price_in}} Ft</h2>
-        <h2>Eladási ár: {{item.price_out}} Ft</h2>
-        <h2>Kategória: {{item.category}}</h2>
-        <h2>Akció: {{item.discount}} Ft</h2>
-    </div>
+        
+        
+    <form action="{%url 'GoodHandler' pk=item.id %}" method="POST">
+        {% csrf_token %}
+        <label for="item_code">Termék kód:</label>
+        <input type="text" name="item_code" value="{{item.item_code}}">
+        <label for="is_visible">Elérhető:</label>
+        <select name="is_visible">
+        <option value="True">Igen</option>
+        <option value="False">Nem</option>
+        </select>
+        <label for="name">Név:</label>
+        <input type="text" name="name" value="{{item.name}}">
+        <label for="amount">Mennyiség</label>
+        <input type="number" name="amount" value="{{item.amount}}">
+        <label for="price_in">Beszerzési ár:</label>
+        <input type="number" name="price_in" value="{{item.price_in}}">
+        <label for="price_out">Eladási ár:</label>
+        <input type="number" name="price_out" value="{{item.price_out}}">
+        <label for="discount">Kedvezmény:</label>
+        <input type="number" name="discount" value="{{item.discount}}"> 
+        <label for="photo">Kép hozzáadása:</label>
+        <input type="file" name="photo"> 
+        <select name="category">
+            {% for choice in choices %}
+            <option value="{{choice.0}}" {% if item.category == choice.0 %} selected {% endif %}>{{choice.1}} </option>
+            {% endfor %}
+        </select>  
+        <button type="submit">Mentés</button>
+    </form>
+    
 
 
 
