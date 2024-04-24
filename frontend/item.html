@@ -1,41 +1,51 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/termek.css">
+    <link rel="stylesheet" href="../static/termek.css" type="text/css">
     <title>Termék</title>
 </head>
 <body>
+    <h2>Termék</h2>
         
         
     <form action="{%url 'GoodHandler' pk=item.id %}" method="POST">
         {% csrf_token %}
-        <label for="item_code">Termék kód:</label>
-        <input type="text" name="item_code" value="{{item.item_code}}">
-        <label for="is_visible">Elérhető:</label>
-        <select name="is_visible">
+        <label for="item_code">Termék kód: </label>
+        <input type="text" style="border-radius: 10px;" name="item_code" value="{{item.item_code}}">
+        <br><br>
+        <label for="is_visible">Elérhető: </label>
+        <select name="is_visible" style="border-radius: 10px;">
         <option value="True">Igen</option>
         <option value="False">Nem</option>
         </select>
-        <label for="name">Név:</label>
-        <input type="text" name="name" value="{{item.name}}">
-        <label for="amount">Mennyiség</label>
-        <input type="number" name="amount" value="{{item.amount}}">
+        <br><br>
+        <label for="name">Név: </label>
+        <input type="text" style="border-radius: 10px;" name="name" value="{{item.name}}">
+        <br><br>
+        <label for="amount">Mennyiség: </label>
+        <input type="number" style="border-radius: 10px;" name="amount" value="{{item.amount}}">
+        <br><br>
         <label for="price_in">Beszerzési ár:</label>
-        <input type="number" name="price_in" value="{{item.price_in}}">
+        <input type="number" style="border-radius: 10px;" name="price_in" value="{{item.price_in}}">
+        <br><br>
         <label for="price_out">Eladási ár:</label>
-        <input type="number" name="price_out" value="{{item.price_out}}">
+        <input type="number" style="border-radius: 10px;" name="price_out" value="{{item.price_out}}">
+        <br><br>
         <label for="discount">Kedvezmény:</label>
-        <input type="number" name="discount" value="{{item.discount}}"> 
+        <input type="number" style="border-radius: 10px;" name="discount" value="{{item.discount}}">
+        <br><br>
         <label for="photo">Kép hozzáadása:</label>
-        <input type="file" name="photo"> 
+        <input type="file" style="border-radius: 10px;" name="photo">
+        <br><br>
         <select name="category">
             {% for choice in choices %}
             <option value="{{choice.0}}" {% if item.category == choice.0 %} selected {% endif %}>{{choice.1}} </option>
             {% endfor %}
-        </select>  
-        <button type="submit">Mentés</button>
+        </select> 
+        <br><br> 
+        <button type="submit" style="border-radius: 10px;">Mentés</button>
     </form>
     
 
