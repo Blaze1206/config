@@ -10,17 +10,3 @@ input {
     background-color: rgb(222, 224, 255);
     text-align: right;
 }
-
-select {
-    font-size: 25px;
-    background-color: rgb(222, 224, 255);
-}
-
-button {
-    font-size: 25px;
-    background-color: rgb(222, 224, 255);
-}
-
-#bal-oldal {
-    text-align: left;
-}

@@ -3,45 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/termek.css">
     <title>Rendelés hozzáadása</title>
 </head>
 <body>
-    <H1>Rendelés hozzáadása</H1>
+    <H2>Rendelés hozzáadása</H2>
     <a href="{% url 'w_orders' %}">Vissza</a>
 
     <form action="{%url 'order' %}" method="post">
         {% csrf_token %}
+
+        <br>
+
         <label for="item">Termék:</label>
-        <select name="item" id="item">
+        <select style="border-radius: 10px;" name="item" id="item">
             <option value="">Válaszd ki a terméket</option>
             {% for good in goods%}
             <option value="{{good.id}}">{{good.name}}</option>
             {%endfor%}
         </select>
+
+        <br><br>
+
         <label for="is_visible">Állapot:</label>
-        <select name="is_visible">
+        <select style="border-radius: 10px;" name="is_visible">
             <option value="True">Élő</option>
             <option value="False">Törölt</option>
         </select>
+
+        <br><br>
+
         <label for="is_done">Szállítva:</label>
-        <select name="is_done">
+        <select style="border-radius: 10px;" name="is_done">
             <option value="True">Igen</option>
             <option value="False">Nem</option>
         </select>
+
+        <br><br>
+
         <label for="name">Név:</label>
-        <input type="text" name="name">
+        <input id="bal-oldal" style="border-radius: 10px;" type="text" name="name">
+        <br><br>
         <label for="address">Cím:</label>
-        <input type="text" name="address">
+        <input id="bal-oldal" style="border-radius: 10px;" type="text" name="address">
+        <br><br>
         <label for="e_mail">E-mail:</label>
-        <input type="email" name="e_mail">
+        <input id="bal-oldal" style="border-radius: 10px;" type="email" name="e_mail">
+        <br><br>
         <label for="phone">Telefonszám:</label>
-        <input type="tel" name="phone">
+        <input id="bal-oldal" style="border-radius: 10px;" type="tel" name="phone">
+        <br><br>
         <label for="amount">Mennyiség:</label>
-        <input type="number" name="amount" id="amount" min="1" >
+        <input style="border-radius: 10px;" type="number" name="amount" id="amount" min="1" >
+        <br><br>
         <label for="price">Ár</label>
-        <input type="number" name="price" id="price">
-        <button type="submit">Mentés</button>
+        <input style="border-radius: 10px;" type="number" name="price" id="price">
+        <br><br>
+        <button style="border-radius: 10px;" type="submit">Mentés</button>
     </form>
     <script src="../static/script_add_order.js"></script>
 </body>

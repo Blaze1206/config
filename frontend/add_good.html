@@ -3,39 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/style.css" type="text/css">
     <title>Termék hozzáadása</title>
 </head>
 <body>
-    <h1>Termék hozzáadása</h1>
+    <h2>Termék hozzáadása</h2>
     <a href="{% url 'w_admin' %}">Vissza</a>
 
     <form action="{%url 'good' %}" method="post">
         {% csrf_token %}
+        <br>
         <label for="item_code">Termék kód:</label>
-        <input type="text" name="item_code">
+        <input id="bal-oldal" style="border-radius: 10px;" type="text" name="item_code">
+        <br><br>
         <label for="is_visible">Elérhető:</label>
-        <select name="is_visible">
+        <select style="border-radius: 10px;" name="is_visible">
             <option value="True">Igen</option>
             <option value="False">Nem</option>
         </select>
-        <select name="category">
+        <br><br>
+        <select style="border-radius: 10px;" name="category">
             {% for choice in choices %}
                 <option value="{{choice.0}}">{{choice.1}}</option>
             {% endfor %}
         </select>
+        <br><br>
         <label for="name">Név:</label>
-        <input type="text" name="name">
+        <input id="bal-oldal" style="border-radius: 10px;" type="text" name="name">
+        <br><br>
         <label for="amount">Mennyiség</label>
-        <input type="number" name="amount">
+        <input style="border-radius: 10px;" type="number" name="amount">
+        <br><br>
         <label for="price_in">Beszerzési ár:</label>
-        <input type="number" name="price_in">
+        <input style="border-radius: 10px;" type="number" name="price_in">
+        <br><br>
         <label for="price_out">Eladási ár:</label>
-        <input type="number" name="price_out">
+        <input style="border-radius: 10px;" type="number" name="price_out">
+        <br><br>
         <label for="discount">Kedvezmény:</label>
-        <input type="number" name="discount">
+        <input style="border-radius: 10px;" type="number" name="discount">
+        <br><br>
         <label for="photo">Kép hozzáadása:</label>
-        <input type="file" name="photo"> 
-        <button type="submit">Mentés</button>
+        <input style="border-radius: 10px;" type="file" name="photo"> 
+        <br><br>
+        <button style="border-radius: 10px;" type="submit">Mentés</button>
 </body>
 </html>

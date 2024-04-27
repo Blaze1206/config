@@ -8,8 +8,8 @@
 </head>
 <body>
     <div id="orders_head">
-        <input type="text" id="search">
-        <button onclick="search()">Keress</button>
+        <input style="border-radius: 10px;" type="text" id="search">
+        <button style="border-radius: 10px;" onclick="search()">Keress</button>
 
         <input type="checkbox" id="deleted">
         Törölt
@@ -24,10 +24,10 @@
         <a href="{% url 'logout' %}">
             Kijelentkezés
         </a>
-        
-        
+   
     </div>
 
+    <br>
         <table id="orders_list">
             <tr>
                 <td>Rendelés szám</td>
@@ -39,6 +39,8 @@
                 <td>Ár</td>
             </tr>
         </table>
+
+        <br>
 
         <div id="pages"></div>
 
